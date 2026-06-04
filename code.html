@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<!--
+  clawback.md — landing page.
+  Self-contained: no CDNs, no web fonts, no external scripts. Brand tokens
+  mirror src/ui/style.css so this page matches the dashboard exactly.
+
+  BEFORE PUBLISHING:
+    1. Rename this file to index.html (GitHub Pages serves index.html).
+    2. Find-and-replace  OWNER/clawback  with the real GitHub repo path.
+       (Left as a placeholder on purpose — no canonical repo URL is in-tree,
+        and we don't guess URLs.)
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>clawback.md — same quota, longer runs</title>
+	<meta name="description" content="A transparent prompt-cache proxy for Claude Code. See how your tokens are spent and flip one-click knobs that turn expensive cache-creation tokens into cheap cache reads." />
+	<meta name="color-scheme" content="light dark" />
+	<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+	<meta name="theme-color" content="#181713" media="(prefers-color-scheme: dark)" />
+	<meta property="og:title" content="clawback.md" />
+	<meta property="og:description" content="A transparent prompt-cache proxy for Claude Code. Same weekly quota, longer runs." />
+	<meta property="og:type" content="website" />
+	<meta name="twitter:card" content="summary" />
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a5c3f'/><text x='16' y='23' font-size='19' font-family='monospace' fill='white' text-anchor='middle'>$_</text></svg>" />
+	<style>
+		/* Brand tokens — copied verbatim from src/ui/style.css so this page
+		   and the live dashboard never drift. Light is canonical; dark via
+		   prefers-color-scheme, same as the app. */
+		:root {
+			color-scheme: light dark;
+			--bg: #fafaf8;
+			--fg: #0a0a0a;
+			--muted: #3a3a3a;
+			--border: #a8a39a;
+			--card: #fff;
+			--accent: #1a5c3f;
+			--accent-active: #8a4e0a;
+			--warn: #d11a2a;
+			--maxw: 60rem;
+			--mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+			--sans: Helvetica, "Helvetica Neue", Arial, sans-serif;
+		}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #181713;
+				--fg: #fafafa;
+				--muted: #d4d4d4;
+				--border: #5f5a4d;
+				--card: #21201b;
+			}
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			font-family: var(--sans);
+			background: var(--bg);
+			color: var(--fg);
+			font-size: 16px;
+			line-height: 1.55;
+			-webkit-text-size-adjust: 100%;
+			overflow-x: hidden;
+		}
+
+		.tnum { font-variant-numeric: tabular-nums; }
+		.mono { font-family: var(--mono); }
+
+		.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+		/* Inline links: underline always present so meaning never depends on
+		   color alone (WCAG 1.4.1). Decoration uses the brand green; the text
+		   itself stays --fg so contrast holds on both themes. */
+		a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 2px; }
+		a:hover { text-decoration-thickness: 2px; }
+
+		:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; border-radius: 2px; }
+
+		.skip {
+			position: absolute; left: 0; top: 0;
+			transform: translateY(-120%);
+			background: var(--accent); color: #fff;
+			padding: 8px 12px; text-decoration: none; font-weight: 600;
+			border-radius: 0 0 4px 0; z-index: 20;
+		}
+		.skip:focus { transform: translateY(0); }
+
+		/* Nav */
+		.nav {
+			position: sticky; top: 0; z-index: 10;
+			display: flex; align-items: center; justify-content: space-between; gap: 16px;
+			padding: 12px 20px;
+			background: color-mix(in srgb, var(--bg) 92%, transparent);
+			backdrop-filter: saturate(1.1) blur(6px);
+			border-bottom: 1px solid var(--border);
+			flex-wrap: wrap;
+		}
+		.brand { font-family: var(--mono); font-size: 20px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; color: var(--fg); }
+		.brand .dim { color: var(--muted); }
+		.nav-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+		.navlink { color: var(--muted); text-decoration: none; font-size: 15px; }
+		.navlink:hover, .navlink:focus-visible { color: var(--fg); text-decoration: underline; text-decoration-color: var(--accent); }
+
+		.btn {
+			display: inline-flex; align-items: center; gap: 8px;
+			font-family: var(--sans); font-size: 15px; font-weight: 600;
+			padding: 8px 14px; border-radius: 4px; cursor: pointer;
+			border: 1px solid var(--accent); background: var(--accent); color: #fff; text-decoration: none;
+		}
+		.btn.ghost { background: transparent; color: var(--fg); border-color: var(--border); }
+		.btn.ghost:hover { border-color: var(--accent); }
+
+		/* Sections */
+		section { padding: 56px 0; border-top: 1px solid var(--border); scroll-margin-top: 72px; }
+		#main { scroll-margin-top: 72px; }
+		section:first-of-type { border-top: 0; }
+		h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 14px; }
+		h2 { font-size: clamp(22px, 4vw, 28px); letter-spacing: -0.01em; margin: 0 0 8px; }
+		h3 { font-size: 17px; margin: 0; }
+		.eyebrow {
+			font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em;
+			color: var(--muted); text-transform: lowercase; margin: 0;
+		}
+		.lede { font-size: 19px; color: var(--fg); max-width: 46ch; }
+		.section-note { color: var(--muted); max-width: 62ch; margin: 6px 0 28px; }
+
+		/* Hero install well */
+		.install {
+			margin-top: 22px; max-width: 30rem;
+			display: flex; align-items: center; justify-content: space-between; gap: 12px;
+			background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+			padding: 14px 16px;
+		}
+		.install code { font-family: var(--mono); font-size: 15px; color: var(--fg); }
+		.copy {
+			font-family: var(--sans); font-size: 13px; font-weight: 600;
+			color: var(--fg); background: transparent; border: 1px solid var(--border);
+			border-radius: 4px; padding: 6px 10px; cursor: pointer; white-space: nowrap;
+		}
+		.copy:hover { border-color: var(--accent); }
+		.req { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
+		.alpha {
+			display: inline-block; margin-top: 16px;
+			font-family: var(--mono); font-size: 12px; letter-spacing: 0.03em;
+			color: var(--fg); border: 1px solid var(--warn); border-radius: 999px; padding: 3px 10px;
+		}
+		.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+
+		blockquote {
+			margin: 0 0 22px; padding: 4px 0 4px 18px;
+			border-left: 3px solid var(--accent);
+			font-size: 20px; line-height: 1.4;
+		}
+		blockquote .who { display: block; font-size: 15px; color: var(--muted); margin-top: 8px; }
+
+		.prose p { max-width: 64ch; color: var(--fg); }
+		.prose strong { font-weight: 700; }
+
+		/* Cards */
+		.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+		.card {
+			background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+			border-radius: 6px; padding: 18px;
+		}
+		.card .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+		.card p { margin: 0; color: var(--muted); font-size: 15px; }
+		.card p .lit { color: var(--fg); }
+
+		/* Knob / mechanism chips. White on brand fill — AA for both hues.
+		   Color is reinforced by the chip's own text label, never the only cue. */
+		.tag {
+			font-family: var(--mono); font-size: 12px; font-weight: 600;
+			color: #fff; background: var(--accent); border: 1px solid var(--accent);
+			border-radius: 999px; padding: 2px 9px; white-space: nowrap;
+		}
+		.tag.baseline { background: var(--accent-active); border-color: var(--accent-active); }
+
+		/* Control-wedge callout */
+		.callout {
+			background: var(--card); border: 1px solid var(--border);
+			border-radius: 6px; padding: 22px; margin-top: 8px;
+		}
+		.callout .pull { font-size: 19px; line-height: 1.45; margin: 0 0 12px; }
+		.callout p { color: var(--muted); margin: 0 0 10px; max-width: 70ch; }
+		.callout p:last-child { margin-bottom: 0; }
+
+		/* Knob table */
+		.table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; }
+		table { width: 100%; border-collapse: collapse; min-width: 640px; }
+		caption { text-align: left; color: var(--muted); font-size: 14px; padding: 0 0 12px; }
+		th, td { text-align: left; padding: 12px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+		thead th { font-size: 13px; letter-spacing: 0.03em; color: var(--muted); text-transform: uppercase; background: var(--card); }
+		tbody tr:last-child td { border-bottom: 0; }
+		td.what { color: var(--fg); }
+		td.why { color: var(--muted); }
+
+		/* Verify terminal — always dark (it's a terminal), light mono text. */
+		.terminal {
+			background: #181713; border: 1px solid #5f5a4d; border-radius: 6px;
+			overflow: hidden; margin-top: 10px;
+		}
+		.term-bar {
+			display: flex; align-items: center; gap: 8px;
+			padding: 9px 14px; background: #21201b; border-bottom: 1px solid #5f5a4d;
+		}
+		.dot { width: 11px; height: 11px; border-radius: 999px; display: inline-block; }
+		.dot-r { background: #d11a2a; }
+		.dot-a { background: #8a4e0a; }
+		.dot-g { background: #1a5c3f; }
+		.term-title { margin-left: 8px; font-family: var(--mono); font-size: 13px; color: #d4d4d4; }
+		.term-body {
+			margin: 0; padding: 16px; overflow-x: auto;
+			font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #fafafa;
+			white-space: pre;
+		}
+		.term-body .c { color: #fafafa; font-weight: 700; }
+		.term-body .dim { color: #d4d4d4; }
+		.term-body strong { color: #fafafa; font-weight: 700; text-decoration: underline; text-decoration-color: #8a4e0a; text-underline-offset: 3px; }
+
+		.honesty { margin-top: 22px; }
+		.honesty p { color: var(--fg); max-width: 70ch; }
+		.honesty .muted { color: var(--muted); }
+
+		/* Philosophy */
+		.philosophy { text-align: center; }
+		.philosophy p { font-family: var(--mono); font-size: 16px; color: var(--fg); margin: 0; }
+
+		footer {
+			border-top: 1px solid var(--border); padding: 28px 0;
+			display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+			color: var(--muted); font-size: 14px;
+		}
+		footer .mono { font-size: 13px; }
+		footer nav { display: flex; gap: 16px; flex-wrap: wrap; }
+
+		@media (max-width: 760px) {
+			.cards { grid-template-columns: 1fr; }
+			section { padding: 44px 0; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			html { scroll-behavior: auto; }
+			* { transition: none !important; animation: none !important; }
+		}
+		/* High-contrast / forced-colors: drop brand fills, keep every label
+		   legible via system colors + outlines. */
+		@media (forced-colors: active) {
+			.tag, .tag.baseline { color: CanvasText; background: Canvas; border: 1px solid CanvasText; }
+			.install, .card, .callout, .terminal, .table-scroll { border: 1px solid CanvasText; }
+			.term-body, .term-body .c, .term-body .dim, .term-body strong, .term-title { color: CanvasText; }
+			.btn { border: 1px solid CanvasText; }
+		}
+	</style>
+</head>
+<body>
+	<a class="skip" href="#main">Skip to content</a>
+
+	<header class="nav">
+		<a class="brand" href="#main">clawback<span class="dim">.md</span></a>
+		<nav class="nav-links" aria-label="Primary">
+			<a class="navlink" href="#why">why</a>
+			<a class="navlink" href="#knobs">the seven knobs</a>
+			<a class="navlink" href="#verify">verify</a>
+			<a class="btn ghost" href="https://github.com/OWNER/clawback">Source ↗</a>
+		</nav>
+	</header>
+
+	<main id="main">
+		<!-- Hero -->
+		<section class="wrap" aria-labelledby="hero-title">
+			<p class="eyebrow">tokenmaxxer · prompt-cache proxy for claude code</p>
+			<h1 id="hero-title">Same quota.<br />Longer runs.</h1>
+			<p class="lede">A transparent proxy in front of the Anthropic API. See exactly how your tokens are spent, then flip one-click knobs that turn expensive cache-creation tokens into cheap cache reads — so your weekly cap stretches without spending more.</p>
+
+			<div class="install">
+				<code id="installCmd">npx clawback quickstart</code>
+				<button class="copy" type="button" data-copy="npx clawback quickstart" aria-label="Copy install command">copy</button>
+			</div>
+			<p class="req">Requires Node 24+ and an Anthropic API key.</p>
+			<span class="alpha">early alpha — use at your own risk, no warranties</span>
+
+			<div class="hero-cta">
+				<a class="btn" href="#verify">See how to verify it</a>
+				<a class="btn ghost" href="https://github.com/OWNER/clawback#readme">Read the README ↗</a>
+			</div>
+		</section>
+
+		<!-- Why -->
+		<section class="wrap prose" id="why" aria-labelledby="why-title">
+			<p class="eyebrow">why</p>
+			<h2 id="why-title">The cache is rigged to evict</h2>
+			<blockquote>
+				“Show me the incentive and I'll show you the outcome.”
+				<span class="who">— Charlie Munger</span>
+			</blockquote>
+			<p>Anthropic's pricing rewards cache eviction. <strong>Cache-creation tokens cost roughly 10× cache-read tokens</strong>, and the prompt cache silently evicts at three boundaries the SDK docs never mention. Every eviction makes you pay full freight to rebuild a prefix you already sent. clawback.md captures your <code class="mono">system</code> + <code class="mono">tools</code> prefix and keeps it warm across each one.</p>
+
+			<div class="cards">
+				<article class="card">
+					<div class="head">
+						<h3>5-minute idle decay</h3>
+						<span class="tag">keep-alive</span>
+					</div>
+					<p>The default ephemeral cache expires after ~5 minutes idle. <span class="lit">clawback sends synthetic pings every 1–4 minutes</span> so the prefix stays warm between turns.</p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>Date rollover</h3>
+						<span class="tag">strip-ephemeral</span>
+					</div>
+					<p>Claude Code injects today's date into the system prompt; at midnight the bytes change, the cache key changes, everything rebuilds. <span class="lit">clawback normalizes the date and <code class="mono">&lt;env&gt;</code> blocks</span> so the hashed bytes don't move across days.</p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>Billing-token rotation</h3>
+						<span class="tag">normalize</span>
+					</div>
+					<p>A per-request token (<code class="mono">cch=&lt;hex&gt;</code>) rotates every call and fragments the cache key. <span class="lit">clawback normalizes it</span> so consecutive turns land on one shared key instead of a fresh one each time.</p>
+				</article>
+			</div>
+		</section>
+
+		<!-- Control wedge -->
+		<section class="wrap" id="control" aria-labelledby="control-title">
+			<p class="eyebrow">the durable point</p>
+			<h2 id="control-title">You pick the cache tier — not your client</h2>
+			<div class="callout">
+				<p class="pull">“clawback doesn't claim 5-minute caching is always cheaper — it claims the cache tier should be your call, not a silent default your client can change under you.”</p>
+				<p>Claude Code already writes the prompt cache at the 1-hour tier on its own — undocumented, where the SDK describes a 5-minute default. It's not a clawback artifact; it's what your client sends. That's a write-price change you couldn't see and couldn't opt out of.</p>
+				<p>clawback pins the tier deterministically at the proxy: force the documented 5m on tight loops where the 1h premium buys nothing, or inject 1h on purpose across real idle gaps where it earns its keep. Either way, the wheel is in your hands.</p>
+			</div>
+		</section>
+
+		<!-- Seven knobs -->
+		<section class="wrap" id="knobs" aria-labelledby="knobs-title">
+			<p class="eyebrow">the controls</p>
+			<h2 id="knobs-title">The seven knobs</h2>
+			<p class="section-note">Every knob is one click in the web UI or one POST to an admin endpoint. <span class="tag baseline">passthrough</span> is the baseline arm — it turns everything off so you can A/B clawback against doing nothing.</p>
+			<div class="table-scroll">
+				<table>
+					<caption>Source of truth: the project <a href="https://github.com/OWNER/clawback#the-seven-knobs">README → The Seven Knobs</a>.</caption>
+					<thead>
+						<tr>
+							<th scope="col">Knob</th>
+							<th scope="col">What it does</th>
+							<th scope="col">Why it might help</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row"><span class="tag baseline">passthrough</span></th>
+							<td class="what">Turns every clawback.md intervention off (baseline arm)</td>
+							<td class="why">Measure clawback.md's effect — quick A/B against doing nothing</td>
+						</tr>
+						<tr>
+							<th scope="row"><span class="tag">keep-alive</span></th>
+							<td class="what">Synthetic pings to keep the prompt cache warm</td>
+							<td class="why">Avoid 5-minute cache expiry between turns</td>
+						</tr>
+						<tr>
+							<th scope="row"><span class="tag">1h cache TTL</span></th>
+							<td class="what">Use Anthropic's extended cache tier</td>
+							<td class="why">Make cache survive long idle gaps</td>
+						</tr>
+						<tr>
+							<th scope="row"><span class="tag">strip-ephemeral</span></th>
+							<td class="what">Normalize dates / env in system prompts</td>
+							<td class="why">Prevent silent cache invalidation across days</td>
+						</tr>
+						<tr>
+							<th scope="row"><span class="tag">mobile</span></th>
+							<td class="what">gzip outgoing + non-streaming responses</td>
+							<td class="why">Cut radio-on time on tethered/slow links</td>
+						</tr>
+						<tr>
+							<th scope="row"><span class="tag">extended keep-alive</span></th>
+							<td class="what">15–45 min cadence (pairs with 1h TTL)</td>
+							<td class="why">Cut keep-alive cost ~6–12×</td>
+						</tr>
+						<tr>
+							<th scope="row"><span class="tag">auto-continue</span></th>
+							<td class="what">Resume claude after rate-limit cap resets</td>
+							<td class="why">Don't lose your seat at the table</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<!-- Verify -->
+		<section class="wrap" id="verify" aria-labelledby="verify-title">
+			<p class="eyebrow">verify</p>
+			<h2 id="verify-title">Don't trust us — run it yourself</h2>
+			<p class="section-note">clawback ships with the rig that measures its own claim. The proxy is zero-install; the benchmark harness lives in the repo, so clone it when you want to A/B your own traffic.</p>
+
+			<div class="terminal" role="group" aria-label="Example verification session" tabindex="0">
+				<div class="term-bar" aria-hidden="true">
+					<span class="dot dot-r"></span><span class="dot dot-a"></span><span class="dot dot-g"></span>
+					<span class="term-title">zsh — clawback</span>
+				</div>
+<pre class="term-body tnum"><span class="c">$</span> npx clawback quickstart
+  <span class="dim">▸ wrote ./clawback.md   ▸ patched ~/.claude/settings.json</span>
+  <span class="dim">▸ proxy on http://localhost:8080   ▸ launching claude…</span>
+
+<span class="c">$</span> open http://localhost:8080/_proxy/ui/         <span class="dim"># watch tokens live</span>
+
+<span class="c">$</span> scripts/ab_block.sh --profile L2 --turns 200   <span class="dim"># A/B vs doing nothing</span>
+  <span class="dim">arm A0  passthrough (baseline)</span>
+  <span class="dim">arm A5  keep-alive + 1h-TTL + strip-ephemeral</span>
+
+<span class="c">$</span> open http://localhost:8080/_proxy/report       <span class="dim"># read your own numbers</span>
+
+savings %: <strong>insufficient</strong>  <span class="dim">until ≥30 turns/arm — never a number it can't defend</span></pre>
+			</div>
+
+			<div class="honesty">
+				<p>There is no hero percentage on this page on purpose. Below 30 turns per arm the analyzer prints <code class="mono">insufficient</code> instead of a figure it can't stand behind, and every number it does print carries a 95% confidence interval. <span class="muted">No headline savings figure has cleared that significance gate yet — so we don't quote one. Run it against your own sessions and read your own report.</span></p>
+			</div>
+		</section>
+
+		<!-- Philosophy -->
+		<section class="wrap philosophy" aria-label="Philosophy">
+			<p>Local-first. No telemetry. Phones home to nobody.</p>
+		</section>
+	</main>
+
+	<footer class="wrap">
+		<span class="mono">© 2026 clawback.md</span>
+		<span class="mono">local-first · no telemetry</span>
+		<nav aria-label="Footer">
+			<a href="https://github.com/OWNER/clawback">Source</a>
+			<a href="https://github.com/OWNER/clawback#readme">README</a>
+			<a href="https://github.com/OWNER/clawback/blob/main/LICENCE">License</a>
+		</nav>
+	</footer>
+
+	<script>
+		// Copy-to-clipboard for the install command. Progressive: falls back to
+		// a temporary textarea + execCommand where the async clipboard API is
+		// unavailable (e.g. non-secure contexts). Feedback is textual, not
+		// color-only, and announced to assistive tech via the button label.
+		document.querySelectorAll(".copy").forEach(function (btn) {
+			btn.addEventListener("click", function () {
+				var text = btn.getAttribute("data-copy") || "";
+				var done = function () {
+					var prev = btn.textContent;
+					btn.textContent = "copied ✓";
+					window.setTimeout(function () { btn.textContent = prev; }, 1600);
+				};
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					navigator.clipboard.writeText(text).then(done).catch(fallback);
+				} else {
+					fallback();
+				}
+				function fallback() {
+					var ta = document.createElement("textarea");
+					ta.value = text;
+					ta.setAttribute("readonly", "");
+					ta.style.position = "absolute";
+					ta.style.left = "-9999px";
+					document.body.appendChild(ta);
+					ta.select();
+					try { document.execCommand("copy"); done(); } catch (e) { /* no-op */ }
+					document.body.removeChild(ta);
+				}
+			});
+		});
+	</script>
+</body>
+</html>
