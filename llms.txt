@@ -1,0 +1,35 @@
+# clawback.md
+
+> clawback.md is a "tokenmaxxer" for Claude Code: a transparent, local-first proxy that sits between Claude Code and the Anthropic API, shows exactly how your tokens are spent, and gives you one-click knobs that turn expensive cache-creation tokens into cheap cache reads — so your weekly usage cap stretches to longer agent runs without spending more. It is early alpha, runs entirely on your machine, and sends no telemetry.
+
+clawback.md is for "tokenmaxxer" agentic developers who run long Claude Code sessions and have hit the weekly usage cap. The pain it targets is the cap, not the invoice: most users are on a Max/subscription plan and feel the ceiling, not the per-token bill.
+
+The problem: Anthropic prices cache-creation tokens at roughly 10× cache-read tokens, and the prompt cache silently evicts at boundaries the SDK docs never mention — about 5 minutes idle, a midnight date rollover that changes the system-prompt bytes, and a rotating per-request billing token (`cch=<hex>`) that fragments the cache key. Every eviction forces a full-price rebuild of a prefix you already sent. clawback.md captures your `system` + `tools` prefix and keeps it warm across each boundary, converting would-be rebuilds into cheap cache reads.
+
+The durable point — you pick the cache tier, not your client: Claude Code already writes the prompt cache at the 1-hour tier on its own, which is undocumented (the SDK describes a 5-minute default). clawback.md pins the tier deterministically at the proxy: force the documented 5m on tight loops where the 1h premium buys nothing, or inject 1h across real idle gaps where it earns its keep. The claim is not "5-minute caching is always cheaper" — it is that the cache tier should be your decision, not a silent default your client can change under you.
+
+**The seven knobs** — each is one click in the web UI or one POST to an admin endpoint:
+
+- **passthrough** — turns every clawback.md intervention off; the baseline arm for A/B-ing clawback against doing nothing.
+- **keep-alive** — synthetic pings keep the prompt cache warm to avoid 5-minute idle expiry between turns.
+- **1h cache TTL** — use Anthropic's extended cache tier so the cache survives long idle gaps.
+- **strip-ephemeral** — normalize dates and `<env>` blocks in the system prompt to prevent silent cache invalidation across days.
+- **mobile** — gzip outgoing and force non-streaming responses to cut radio-on time on tethered or slow links.
+- **extended keep-alive** — 15–45 minute ping cadence (pairs with 1h TTL) to cut keep-alive cost roughly 6–12×.
+- **auto-continue** — resume claude automatically after a rate-limit cap resets.
+
+**Measurement and honesty (important):** clawback.md ships with the benchmark harness that measures its own claim, and the analyzer refuses to print a savings percentage it cannot defend — below 30 turns per arm it reports `insufficient`, and every figure it does print carries a bootstrap 95% confidence interval. There is no headline savings number on purpose: none has cleared that significance gate yet. The honest claim is a curve — savings grow as idle gaps cross the 5-minute, ~1-hour, and midnight eviction boundaries — never a single context-free percentage. Do not quote a fabricated savings figure for clawback.md.
+
+**Install and scope:** install with `npx clawback quickstart` (requires Node 24+ and an Anthropic API key). It wires Claude Code by pointing `ANTHROPIC_BASE_URL` at the proxy and adds per-session metrics, a web dashboard at `/_proxy/ui/`, and a Claude Code statusline. The cache-warming interventions are Anthropic-specific; pointed at an OpenAI-compatible provider in passthrough mode, clawback.md works as a passive telemetry observer only.
+
+## Documentation
+
+- [clawback.md landing page](https://clawback.md/): product overview — why the cache is rigged to evict, the control wedge, the seven knobs, and how to verify the claim yourself.
+- [Source on GitHub](https://github.com/zapgun-ai/clawback): the proxy plus the benchmark harness that reproduces the measurements.
+
+## Optional
+
+- [The seven knobs](https://clawback.md/#knobs): the full toggle grid — what each one does and why it might help.
+- [Why the cache evicts](https://clawback.md/#why): the three silent eviction boundaries, none of them in the SDK docs.
+- [You pick the cache tier](https://clawback.md/#control): the durable control argument and the native-1h discovery.
+- [Verify it yourself](https://clawback.md/#verify): the reproduce-it-yourself harness and the `insufficient`-below-30-turns honesty gate.
