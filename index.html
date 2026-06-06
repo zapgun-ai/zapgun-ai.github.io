@@ -1,39 +1,33 @@
 <!DOCTYPE html>
 <!--
+  Copyright (c) 2026 Alexander Flanagan. All Rights Reserved.
   clawback.md landing page.
-
-  BEFORE PUBLISHING:
-    2. Find-and-replace  zapgun-ai/clawback  with the real GitHub repo path.
-       (Left as a placeholder on purpose — no canonical repo URL is in-tree,
-        and we don't guess URLs.)
 -->
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>clawback.md — same quota, longer runs</title>
-	<meta name="description" content="A transparent prompt-cache proxy for Claude Code. See how your tokens are spent and flip one-click knobs that turn expensive cache-creation tokens into cheap cache reads." />
+	<title>clawback.md — professional tokenmaxxing</title>
+	<meta name="description" content="Optimize your Claude Code usage. More quota, less spend." />
 	<meta name="color-scheme" content="light dark" />
 	<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#181713" media="(prefers-color-scheme: dark)" />
-	<meta property="og:title" content="clawback.md" />
-	<meta property="og:description" content="A transparent prompt-cache proxy for Claude Code. Same weekly quota, longer runs." />
+	<meta property="og:title" content="clawback.md — professional tokenmaxxing" />
+	<meta property="og:description" content="Optimize your Claude Code usage. More quota, less spend." />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="clawback.md" />
 	<meta property="og:url" content="https://clawback.md/" />
-	<!-- The 1200×630 marketing card the og.clawback.md worker serves. https so a
-	     crawler on an https page will actually fetch it (mixed-content blocks http). -->
 	<meta property="og:image" content="https://og.clawback.md/main.png" />
 	<meta property="og:image:secure_url" content="https://og.clawback.md/main.png" />
 	<meta property="og:image:type" content="image/png" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content="clawback.md — same weekly quota, longer runs" />
+	<meta property="og:image:alt" content="clawback.md — professional tokenmaxxing" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="clawback.md" />
-	<meta name="twitter:description" content="A transparent prompt-cache proxy for Claude Code. Same weekly quota, longer runs." />
+	<meta name="twitter:title" content="clawback.md — professional tokenmaxxing" />
+	<meta name="twitter:description" content="Optimize your Claude Code usage. More quota, less spend." />
 	<meta name="twitter:image" content="https://og.clawback.md/main.png" />
-	<meta name="twitter:image:alt" content="clawback.md — same weekly quota, longer runs" />
+	<meta name="twitter:image:alt" content="clawback.md — professional tokenmaxxing" />
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a5c3f'/><text x='16' y='23' font-size='19' font-family='monospace' fill='white' text-anchor='middle'>$_</text></svg>" />
 	<style>
 		/* Brand tokens — copied verbatim from src/ui/style.css so this page
@@ -127,14 +121,15 @@
 		section { padding: 56px 0; border-top: 1px solid var(--border); scroll-margin-top: 72px; }
 		#main { scroll-margin-top: 72px; }
 		section:first-of-type { border-top: 0; }
-		h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 14px; }
-		h2 { font-size: clamp(22px, 4vw, 28px); letter-spacing: -0.01em; margin: 0 0 8px; }
+		h1 { font-family: var(--mono); font-size: clamp(30px, 6vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 14px; }
+		//.brand { font-family: var(--mono); font-size: 20px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; color: var(--fg); }
+		h2 { font-family: var(--mono); font-size: clamp(22px, 4vw, 28px); letter-spacing: -0.01em; margin: 0 0 8px; }
 		h3 { font-size: 17px; margin: 0; }
 		.eyebrow {
 			font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em;
 			color: var(--muted); text-transform: lowercase; margin: 0;
 		}
-		.lede { font-size: 19px; color: var(--fg); max-width: 46ch; }
+    .lede { font-size: 19px; color: var(--fg); } // max-width: 46ch; }
 		.section-note { color: var(--muted); max-width: 62ch; margin: 6px 0 28px; }
 
 		/* Hero install well */
@@ -270,42 +265,92 @@
 	<header class="nav">
 		<a class="brand" href="#main">clawback<span class="dim">.md</span></a>
 		<nav class="nav-links" aria-label="Primary">
-			<a class="navlink" href="#why">why</a>
+			<!-- <a class="navlink" href="#why">why</a>
 			<a class="navlink" href="#knobs">the seven knobs</a>
-			<a class="navlink" href="#verify">verify</a>
+			<a class="navlink" href="#verify">verify</a> -->
+			<a class="btn ghost" href="https://github.com/zapgun-ai/clawback">Docs ↗</a>
 			<a class="btn ghost" href="https://github.com/zapgun-ai/clawback">Source ↗</a>
+			<a class="btn ghost" href="https://github.com/zapgun-ai/clawback">GitHub ↗</a>
 		</nav>
 	</header>
 
 	<main id="main">
 		<!-- Hero -->
 		<section class="wrap" aria-labelledby="hero-title">
-			<p class="eyebrow">tokenmaxxer · prompt-cache proxy for claude code</p>
-			<h1 id="hero-title">Same quota.<br />Longer runs.</h1>
-			<p class="lede">A transparent proxy in front of the Anthropic API. See exactly how your tokens are spent, then flip one-click knobs that turn expensive cache-creation tokens into cheap cache reads — so your weekly cap stretches without spending more.</p>
+			<!-- <p class="eyebrow">tokenmaxxer · prompt-cache proxy for claude code</p> -->
+			<h1 id="hero-title">clawback.md</h1>
+			<h2 id="hero-subtitle">professional tokenmaxxing</h2>
+      <h3>Quickstart</h3>
 
 			<div class="install">
 				<code id="installCmd">npx clawback quickstart</code>
 				<button class="copy" type="button" data-copy="npx clawback quickstart" aria-label="Copy install command">copy</button>
 			</div>
-			<p class="req">Requires Node 24+ and an Anthropic API key.</p>
-			<span class="alpha">early alpha — use at your own risk, no warranties</span>
+      <br />
 
-			<div class="hero-cta">
-				<a class="btn" href="#verify">See how to verify it</a>
-				<a class="btn ghost" href="https://github.com/zapgun-ai/clawback#readme">Read the README ↗</a>
-			</div>
-		</section>
+      <h2>Why</h2>
+	
+			<p>
+        We built <span class="brand">clawback</span> because we were spending
+        too much on Claude. Anthropic gives you a lot of knobs to tune your API usage, but managing
+        knobs isn't delivering product, and no one really does it.
+      </p>
+			<!-- <p class="lede"> -->
+      <p>
+        We made <span class="brand">clawback</span> to optimize our
+        Anthropic usage, and it works so well we decided to share it.
+      </p>
+        <span class="brand">clawback</span> is a transparent local proxy for
+        the Anthropic API that manages your traffic to make sure your usage is
+        fully optimized. Here is the actual efficiency gain we got last night,
+        while using <span class="brand">clawback</span> to vibecode
+        <span class="brand">clawback</span>:
+      </p>
 
-		<!-- Why -->
-		<section class="wrap prose" id="why" aria-labelledby="why-title">
-			<p class="eyebrow">why</p>
-			<h2 id="why-title">The cache is rigged to evict</h2>
+      <img src="https://og.clawback.md/main.png" width="90%" height="90%" alt="" />
+      <br />
+      <br />
+
+      <h2>How</h2>
 			<blockquote>
 				“Show me the incentive and I'll show you the outcome.”
 				<span class="who">— Charlie Munger</span>
 			</blockquote>
-			<p>Anthropic's pricing rewards cache eviction. <strong>Cache-creation tokens cost roughly 10× cache-read tokens</strong>, and the prompt cache silently evicts at three boundaries the SDK docs never mention. Every eviction makes you pay full freight to rebuild a prefix you already sent. clawback.md captures your <code class="mono">system</code> + <code class="mono">tools</code> prefix and keeps it warm across each one.</p>
+			<p>Anthropic's pricing rewards cache eviction.
+        <a href="https://platform.claude.com/docs/en/about-claude/pricing">
+          <strong>Cache-creation tokens cost about 12x to 20× cache-read
+          tokens</strong>
+        </a>. The more you hit cachce, the better. How you talk to
+        Claude changes whether you need 5 minute caching, whether you can
+        amortize one hour caching, when you might need cache breakpoints, and
+        a bunch of other tweaks.</p>
+      <p>We figured out those tweaks, when you need them, and when you need to
+      <i>turn them off</i>, so that you don't have to.</p>
+      <p>We're committed to full transparency, privacy, and reporting, so <a
+      href="https://github.com/zapgun-al/clawback">you and your agents can look
+      at the code</a> and apply these techniques yourself.
+      </p>
+
+		<!-- <p class="req">Requires Node 24+ and an Anthropic API key.</p>
+			<span class="alpha">early alpha — use at your own risk, no warranties</span> -->
+
+			<!-- <div class="hero-cta">
+				<a class="btn" href="#verify">See how to verify it</a>
+				<a class="btn ghost" href="https://github.com/zapgun-ai/clawback#readme">Read the README ↗</a>
+			</div> -->
+      <h2>Contact</h2>
+      <p>Features? Questions? We love to hear from users and fans and critics:</p>
+      <p><a href="mailto:hello@clawback.md">hello@clawback.md</a></p>
+		</section>
+    <br />
+
+		<!-- Why
+		<section class="wrap prose" id="why" aria-labelledby="why-title">
+			<blockquote>
+				“Show me the incentive and I'll show you the outcome.”
+				<span class="who">— Charlie Munger</span>
+			</blockquote>
+			<p>Anthropic's pricing rewards cache eviction. <strong>Cache-creation tokens cost ~10× cache-read tokens</strong>, and the prompt cache silently evicts at three boundaries the SDK docs never mention. Every eviction makes you pay full freight to rebuild a prefix you already sent. clawback.md captures your <code class="mono">system</code> + <code class="mono">tools</code> prefix and keeps it warm across each one.</p>
 
 			<div class="cards">
 				<article class="card">
@@ -332,7 +377,7 @@
 			</div>
 		</section>
 
-		<!-- Control wedge -->
+		<!-- Control wedge 
 		<section class="wrap" id="control" aria-labelledby="control-title">
 			<p class="eyebrow">the durable point</p>
 			<h2 id="control-title">You pick the cache tier — not your client</h2>
@@ -341,9 +386,9 @@
 				<p>Claude Code already writes the prompt cache at the 1-hour tier on its own — undocumented, where the SDK describes a 5-minute default. It's not a clawback artifact; it's what your client sends. That's a write-price change you couldn't see and couldn't opt out of.</p>
 				<p>clawback pins the tier deterministically at the proxy: force the documented 5m on tight loops where the 1h premium buys nothing, or inject 1h on purpose across real idle gaps where it earns its keep. Either way, the wheel is in your hands.</p>
 			</div>
-		</section>
+		</section> -->
 
-		<!-- Seven knobs -->
+		<!-- Seven knobs 
 		<section class="wrap" id="knobs" aria-labelledby="knobs-title">
 			<p class="eyebrow">the controls</p>
 			<h2 id="knobs-title">The seven knobs</h2>
@@ -397,9 +442,9 @@
 					</tbody>
 				</table>
 			</div>
-		</section>
+		</section> -->
 
-		<!-- Verify -->
+		<!-- Verify 
 		<section class="wrap" id="verify" aria-labelledby="verify-title">
 			<p class="eyebrow">verify</p>
 			<h2 id="verify-title">Don't trust us — run it yourself</h2>
@@ -428,22 +473,20 @@ savings %: <strong>insufficient</strong>  <span class="dim">until ≥30 turns/ar
 			<div class="honesty">
 				<p>There is no hero percentage on this page on purpose. Below 30 turns per arm the analyzer prints <code class="mono">insufficient</code> instead of a figure it can't stand behind, and every number it does print carries a 95% confidence interval. <span class="muted">No headline savings figure has cleared that significance gate yet — so we don't quote one. Run it against your own sessions and read your own report.</span></p>
 			</div>
-		</section>
+		</section> -->
 
 		<!-- Philosophy -->
 		<section class="wrap philosophy" aria-label="Philosophy">
-			<p>Local-first. No telemetry. Phones home to nobody.</p>
+    ☧
 		</section>
 	</main>
 
 	<footer class="wrap">
-		<span class="mono">© 2026 clawback.md</span>
-		<span class="mono">local-first · no telemetry</span>
-		<nav aria-label="Footer">
+		<!-- <nav aria-label="Footer">
 			<a href="https://github.com/zapgun-ai/clawback">Source</a>
 			<a href="https://github.com/zapgun-ai/clawback#readme">README</a>
 			<a href="https://github.com/zapgun-ai/clawback/blob/main/LICENCE">License</a>
-		</nav>
+		</nav> -->
 	</footer>
 
 	<script>
