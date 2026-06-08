@@ -1,12 +1,12 @@
 # clawback.md
 
-> clawback.md is a "tokenmaxxer" for Claude Code: a transparent, local-first proxy that sits between Claude Code and the Anthropic API, shows exactly how your tokens are spent, and gives you one-click knobs that turn expensive cache-creation tokens into cheap cache reads — so your weekly usage cap stretches to longer agent runs without spending more. It is early alpha, runs entirely on your machine, and sends no telemetry.
+> clawback.md is a "tokenmaxxer" for Claude Code: a transparent, local-first proxy that sits between Claude Code and the Anthropic API, shows exactly how your tokens are spent, and gives you one-click knobs that turn expensive cache-creation tokens into cheap cache reads. The result is "more quota, less spend" — the same lever both stretches your weekly usage cap to longer agent runs and lowers a pay-as-you-go bill. It is early alpha, runs entirely on your machine, and reports no telemetry.
 
-clawback.md is for "tokenmaxxer" agentic developers who run long Claude Code sessions and have hit the weekly usage cap. The pain it targets is the cap, not the invoice: most users are on a Max/subscription plan and feel the ceiling, not the per-token bill.
+clawback.md is for "tokenmaxxer" agentic developers who run long Claude Code sessions. Whether you feel the pain as a weekly **usage cap** (Max/subscription plans) or as a **per-token bill** (API plans), it comes from the same place: full-price cache-creation tokens. clawback.md attacks that one lever, so a single intervention both stretches the cap and lowers the invoice.
 
-The problem: Anthropic prices cache-creation tokens at roughly 10× cache-read tokens, and the prompt cache silently evicts at boundaries the SDK docs never mention — about 5 minutes idle, a midnight date rollover that changes the system-prompt bytes, and a rotating per-request billing token (`cch=<hex>`) that fragments the cache key. Every eviction forces a full-price rebuild of a prefix you already sent. clawback.md captures your `system` + `tools` prefix and keeps it warm across each boundary, converting would-be rebuilds into cheap cache reads.
+The problem: Anthropic prices cache-creation (cache-write) tokens at roughly **12–20× cache-read tokens** — about 12× at the 5-minute write tier and about 20× at the 1-hour write tier — and the prompt cache silently evicts at boundaries the SDK docs never mention: about 5 minutes idle, a midnight date rollover that changes the system-prompt bytes, and a rotating per-request billing token (`cch=<hex>`) that fragments the cache key. Every eviction forces a full-price rebuild of a prefix you already sent. clawback.md captures your `system` + `tools` prefix and keeps it warm across each boundary, converting would-be rebuilds into cheap cache reads.
 
-The durable point — you pick the cache tier, not your client: Claude Code already writes the prompt cache at the 1-hour tier on its own, which is undocumented (the SDK describes a 5-minute default). clawback.md pins the tier deterministically at the proxy: force the documented 5m on tight loops where the 1h premium buys nothing, or inject 1h across real idle gaps where it earns its keep. The claim is not "5-minute caching is always cheaper" — it is that the cache tier should be your decision, not a silent default your client can change under you.
+The durable point — you pick the cache tier, not your client: Claude Code already writes the prompt cache at the 1-hour tier on its own, which is undocumented (the SDK describes a 5-minute default). clawback.md pins the tier deterministically at the proxy: force the documented 5m on tight loops where the 1h write premium buys nothing, or inject 1h across real idle gaps where it earns its keep. The claim is not "5-minute caching is always cheaper" — it is that the cache tier should be your decision, not a silent default your client can change under you.
 
 **The seven knobs** — each is one click in the web UI or one POST to an admin endpoint:
 
@@ -25,11 +25,11 @@ The durable point — you pick the cache tier, not your client: Claude Code alre
 ## Documentation
 
 - [clawback.md landing page](https://clawback.md/): product overview — why the cache is rigged to evict, the control wedge, the seven knobs, and how to verify the claim yourself.
-- [Source on GitHub](https://github.com/zapgun-ai/clawback): the proxy plus the benchmark harness that reproduces the measurements.
+- [Source and docs on GitHub](https://github.com/zapgun-ai/clawback): the proxy plus the benchmark harness that reproduces the measurements, with the full README.
 
 ## Optional
 
-- [The seven knobs](https://clawback.md/#knobs): the full toggle grid — what each one does and why it might help.
-- [Why the cache evicts](https://clawback.md/#why): the three silent eviction boundaries, none of them in the SDK docs.
-- [You pick the cache tier](https://clawback.md/#control): the durable control argument and the native-1h discovery.
-- [Verify it yourself](https://clawback.md/#verify): the reproduce-it-yourself harness and the `insufficient`-below-30-turns honesty gate.
+- [The seven knobs](https://github.com/zapgun-ai/clawback#the-seven-knobs): the full toggle grid — what each one does and why it might help.
+- [Why the cache evicts](https://github.com/zapgun-ai/clawback#why): the silent eviction boundaries and how clawback keeps the `system` + `tools` prefix warm across them.
+- [Configuration reference](https://github.com/zapgun-ai/clawback#configuration): the layered config model and the flags behind each knob, including the cache-TTL interventions that pin the tier.
+- [Verify it yourself](https://github.com/zapgun-ai/clawback#validating-the-value-prop): the reproduce-it-yourself harness and the `insufficient`-below-30-turns honesty gate.
