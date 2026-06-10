@@ -8,12 +8,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>clawback.md — professional tokenmaxxing</title>
-	<meta name="description" content="Optimize your Claude Code usage. More quota, less spend." />
+	<meta name="description" content="Make your Claude Code tokens go further. Same plan, same quota, more work done." />
 	<meta name="color-scheme" content="light dark" />
 	<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#181713" media="(prefers-color-scheme: dark)" />
 	<meta property="og:title" content="clawback.md — professional tokenmaxxing" />
-	<meta property="og:description" content="Optimize your Claude Code usage. More quota, less spend." />
+	<meta property="og:description" content="Make your Claude Code tokens go further. Same plan, same quota, more work done." />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="clawback.md" />
 	<meta property="og:url" content="https://clawback.md/" />
@@ -25,7 +25,7 @@
 	<meta property="og:image:alt" content="clawback.md — professional tokenmaxxing" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="clawback.md — professional tokenmaxxing" />
-	<meta name="twitter:description" content="Optimize your Claude Code usage. More quota, less spend." />
+	<meta name="twitter:description" content="Make your Claude Code tokens go further. Same plan, same quota, more work done." />
 	<meta name="twitter:image" content="https://og.clawback.md/main.png" />
 	<meta name="twitter:image:alt" content="clawback.md — professional tokenmaxxing" />
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a5c3f'/><text x='16' y='23' font-size='19' font-family='monospace' fill='white' text-anchor='middle'>$_</text></svg>" />
@@ -122,14 +122,13 @@
 		#main { scroll-margin-top: 72px; }
 		section:first-of-type { border-top: 0; }
 		h1 { font-family: var(--mono); font-size: clamp(30px, 6vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 14px; }
-		//.brand { font-family: var(--mono); font-size: 20px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; color: var(--fg); }
 		h2 { font-family: var(--mono); font-size: clamp(22px, 4vw, 28px); letter-spacing: -0.01em; margin: 0 0 8px; }
 		h3 { font-size: 17px; margin: 0; }
 		.eyebrow {
 			font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em;
 			color: var(--muted); text-transform: lowercase; margin: 0;
 		}
-    .lede { font-size: 19px; color: var(--fg); } // max-width: 46ch; }
+		.lede { font-size: 19px; color: var(--fg); max-width: 52ch; }
 		.section-note { color: var(--muted); max-width: 62ch; margin: 6px 0 28px; }
 
 		/* Hero install well */
@@ -164,12 +163,17 @@
 		.prose p { max-width: 64ch; color: var(--fg); }
 		.prose strong { font-weight: 700; }
 
+		figure { margin: 26px 0 0; max-width: 64ch; }
+		figure img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 6px; }
+		figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
 		/* Cards */
 		.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
 		.card {
 			background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent);
 			border-radius: 6px; padding: 18px;
 		}
+		.card.baseline { grid-column: 1 / -1; border-left-color: var(--accent-active); }
 		.card .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
 		.card p { margin: 0; color: var(--muted); font-size: 15px; }
 		.card p .lit { color: var(--fg); }
@@ -182,8 +186,9 @@
 			border-radius: 999px; padding: 2px 9px; white-space: nowrap;
 		}
 		.tag.baseline { background: var(--accent-active); border-color: var(--accent-active); }
+		.tag.soon { background: transparent; color: var(--muted); border-color: var(--border); }
 
-		/* Control-wedge callout */
+		/* Callout */
 		.callout {
 			background: var(--card); border: 1px solid var(--border);
 			border-radius: 6px; padding: 22px; margin-top: 8px;
@@ -191,16 +196,6 @@
 		.callout .pull { font-size: 19px; line-height: 1.45; margin: 0 0 12px; }
 		.callout p { color: var(--muted); margin: 0 0 10px; max-width: 70ch; }
 		.callout p:last-child { margin-bottom: 0; }
-
-		/* Knob table */
-		.table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 6px; }
-		table { width: 100%; border-collapse: collapse; min-width: 640px; }
-		caption { text-align: left; color: var(--muted); font-size: 14px; padding: 0 0 12px; }
-		th, td { text-align: left; padding: 12px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
-		thead th { font-size: 13px; letter-spacing: 0.03em; color: var(--muted); text-transform: uppercase; background: var(--card); }
-		tbody tr:last-child td { border-bottom: 0; }
-		td.what { color: var(--fg); }
-		td.why { color: var(--muted); }
 
 		/* Verify terminal — always dark (it's a terminal), light mono text. */
 		.terminal {
@@ -252,7 +247,7 @@
 		/* High-contrast / forced-colors: drop brand fills, keep every label
 		   legible via system colors + outlines. */
 		@media (forced-colors: active) {
-			.tag, .tag.baseline { color: CanvasText; background: Canvas; border: 1px solid CanvasText; }
+			.tag, .tag.baseline, .tag.soon { color: CanvasText; background: Canvas; border: 1px solid CanvasText; }
 			.install, .card, .callout, .terminal, .table-scroll { border: 1px solid CanvasText; }
 			.term-body, .term-body .c, .term-body .dim, .term-body strong, .term-title { color: CanvasText; }
 			.btn { border: 1px solid CanvasText; }
@@ -265,11 +260,9 @@
 	<header class="nav">
 		<a class="brand" href="#main">clawback<span class="dim">.md</span></a>
 		<nav class="nav-links" aria-label="Primary">
-			<!-- <a class="navlink" href="#why">why</a>
+			<a class="navlink" href="#why">why</a>
 			<a class="navlink" href="#knobs">the seven knobs</a>
-			<a class="navlink" href="#verify">verify</a> -->
-			<a class="btn ghost" href="https://github.com/zapgun-ai/clawback">Docs ↗</a>
-			<a class="btn ghost" href="https://github.com/zapgun-ai/clawback">Source ↗</a>
+			<a class="navlink" href="#verify">verify</a>
 			<a class="btn ghost" href="https://github.com/zapgun-ai/clawback">GitHub ↗</a>
 		</nav>
 	</header>
@@ -277,219 +270,210 @@
 	<main id="main">
 		<!-- Hero -->
 		<section class="wrap" aria-labelledby="hero-title">
-			<!-- <p class="eyebrow">tokenmaxxer · prompt-cache proxy for claude code</p> -->
+			<p class="eyebrow">a local optimizer for claude code</p>
 			<h1 id="hero-title">clawback.md</h1>
 			<h2 id="hero-subtitle">professional tokenmaxxing</h2>
-      <h3>Quickstart</h3>
+			<p class="lede">
+				Your tokens go further, so you go further. <span class="brand">clawback</span>
+				quietly tunes how Claude Code talks to Anthropic — same model, same plan,
+				more work out of every session.
+			</p>
 
 			<div class="install">
 				<code id="installCmd">npx @zapgun/clawback quickstart</code>
-				<button class="copy" type="button" data-copy="npx clawback quickstart" aria-label="Copy install command">copy</button>
+				<button class="copy" type="button" data-copy="npx @zapgun/clawback quickstart" aria-label="Copy install command">copy</button>
 			</div>
-      <br />
+			<p class="req">Requires Node 24+. Runs entirely on your machine.</p>
+			<span class="alpha">early alpha — use at your own risk, no warranties</span>
 
-      <h2>Why</h2>
-	
-			<p>
-        We built <span class="brand">clawback</span> because we were spending
-        too much on Claude. Anthropic gives you a lot of knobs to tune your API usage, but managing
-        knobs isn't delivering product, and no one really does it.
-      </p>
-			<!-- <p class="lede"> -->
-      <p>
-        We made <span class="brand">clawback</span> to optimize our
-        Anthropic usage, and it works so well we decided to share it.
-      </p>
-        <span class="brand">clawback</span> is a transparent local proxy for
-        the Anthropic API that manages your traffic to make sure your usage is
-        fully optimized. Here is the actual efficiency gain we got last night,
-        while using <span class="brand">clawback</span> to vibecode
-        <span class="brand">clawback</span>:
-      </p>
-
-      <img src="https://og.clawback.md/main.png" width="90%" height="90%" alt="" />
-      <br />
-      <br />
-
-      <h2>How</h2>
-			<blockquote>
-				“Show me the incentive and I'll show you the outcome.”
-				<span class="who">— Charlie Munger</span>
-			</blockquote>
-			<p>Anthropic's pricing rewards cache eviction.
-        <a href="https://platform.claude.com/docs/en/about-claude/pricing">
-          <strong>Cache-creation tokens cost about 12x to 20× cache-read
-          tokens</strong>
-        </a>. The more you hit cachce, the better. How you talk to
-        Claude changes whether you need 5 minute caching, whether you can
-        amortize one hour caching, when you might need cache breakpoints, and
-        a bunch of other tweaks.</p>
-      <p>We figured out those tweaks, when you need them, and when you need to
-      <i>turn them off</i>, so that you don't have to.</p>
-      <p>We're committed to full transparency, privacy, and reporting, so <a
-      href="https://github.com/zapgun-al/clawback">you and your agents can look
-      at the code</a> and apply these techniques yourself.
-      </p>
-
-		<!-- <p class="req">Requires Node 24+ and an Anthropic API key.</p>
-			<span class="alpha">early alpha — use at your own risk, no warranties</span> -->
-
-			<!-- <div class="hero-cta">
-				<a class="btn" href="#verify">See how to verify it</a>
+			<div class="hero-cta">
+				<a class="btn" href="#knobs">See the seven knobs</a>
 				<a class="btn ghost" href="https://github.com/zapgun-ai/clawback#readme">Read the README ↗</a>
-			</div> -->
-      <h2>Contact</h2>
-      <p>Features? Questions? We love to hear from users and fans and critics:</p>
-      <ul>
-        <li><a href="mailto:hello@clawback.md">hello@clawback.md</a></li>
-        <li><a href="https://x.com/clawback_md">https://x.com/clawback_md</a></li>
-      </ul>
+			</div>
 		</section>
-    <br />
 
-		<!-- Why
+		<!-- Why -->
 		<section class="wrap prose" id="why" aria-labelledby="why-title">
+			<h2 id="why-title">Why</h2>
+			<p>
+				We built <span class="brand">clawback</span> because we kept running out
+				of Claude. Anthropic gives you plenty of knobs to tune your usage — but
+				managing knobs isn't delivering product, so nobody really does it.
+			</p>
+			<p>
+				We made <span class="brand">clawback</span> to optimize our own
+				Anthropic usage, and it works so well we decided to share it.
+			</p>
+			<p>
+				<span class="brand">clawback</span> is a transparent local proxy for
+				the Anthropic API. It sits between Claude Code and Anthropic, shows you
+				exactly where your tokens go, and keeps your usage fully optimized —
+				so a day's quota does more than a day's worth of work.
+			</p>
+			<figure>
+				<img src="https://og.clawback.md/main.png" alt="Chart from a real clawback session showing token efficiency over one night of work" />
+				<figcaption>The actual efficiency gain from last night — captured while using <span class="brand">clawback</span> to build <span class="brand">clawback</span>.</figcaption>
+			</figure>
+		</section>
+
+		<!-- How -->
+		<section class="wrap prose" id="how" aria-labelledby="how-title">
+			<h2 id="how-title">How</h2>
 			<blockquote>
 				“Show me the incentive and I'll show you the outcome.”
 				<span class="who">— Charlie Munger</span>
 			</blockquote>
-			<p>Anthropic's pricing rewards cache eviction. <strong>Cache-creation tokens cost ~10× cache-read tokens</strong>, and the prompt cache silently evicts at three boundaries the SDK docs never mention. Every eviction makes you pay full freight to rebuild a prefix you already sent. clawback.md captures your <code class="mono">system</code> + <code class="mono">tools</code> prefix and keeps it warm across each one.</p>
-
-			<div class="cards">
-				<article class="card">
-					<div class="head">
-						<h3>5-minute idle decay</h3>
-						<span class="tag">keep-alive</span>
-					</div>
-					<p>The default ephemeral cache expires after ~5 minutes idle. <span class="lit">clawback sends synthetic pings every 1–4 minutes</span> so the prefix stays warm between turns.</p>
-				</article>
-				<article class="card">
-					<div class="head">
-						<h3>Date rollover</h3>
-						<span class="tag">strip-ephemeral</span>
-					</div>
-					<p>Claude Code injects today's date into the system prompt; at midnight the bytes change, the cache key changes, everything rebuilds. <span class="lit">clawback normalizes the date and <code class="mono">&lt;env&gt;</code> blocks</span> so the hashed bytes don't move across days.</p>
-				</article>
-				<article class="card">
-					<div class="head">
-						<h3>Billing-token rotation</h3>
-						<span class="tag">normalize</span>
-					</div>
-					<p>A per-request token (<code class="mono">cch=&lt;hex&gt;</code>) rotates every call and fragments the cache key. <span class="lit">clawback normalizes it</span> so consecutive turns land on one shared key instead of a fresh one each time.</p>
-				</article>
-			</div>
+			<p>
+				Anthropic prices cached conversation at a steep discount:
+				<a href="https://platform.claude.com/docs/en/about-claude/pricing"><strong>reading
+				from cache costs 12–20× less than writing to it</strong></a>. But the cache
+				silently expires — after five idle minutes, at midnight when the date inside
+				your prompt changes, whenever a hidden per-request token rotates. Every
+				expiry means your next message pays full price to rebuild context you
+				already paid for.
+			</p>
+			<p>
+				Nobody upstream is paid to keep your cache warm. How you talk to Claude
+				decides whether 5-minute caching is enough, when hour-long caching pays
+				for itself, where cache breakpoints belong — and when to turn each trick
+				<i>off</i>. We figured out those tweaks, when you need them, and when you
+				don't, so that you don't have to.
+			</p>
+			<p>
+				We're committed to full transparency, privacy, and reporting, so
+				<a href="https://github.com/zapgun-ai/clawback">you and your agents can
+				read the code</a> and apply these techniques yourself.
+			</p>
 		</section>
 
-		<!-- Control wedge 
-		<section class="wrap" id="control" aria-labelledby="control-title">
-			<p class="eyebrow">the durable point</p>
-			<h2 id="control-title">You pick the cache tier — not your client</h2>
-			<div class="callout">
-				<p class="pull">“clawback doesn't claim 5-minute caching is always cheaper — it claims the cache tier should be your call, not a silent default your client can change under you.”</p>
-				<p>Claude Code already writes the prompt cache at the 1-hour tier on its own — undocumented, where the SDK describes a 5-minute default. It's not a clawback artifact; it's what your client sends. That's a write-price change you couldn't see and couldn't opt out of.</p>
-				<p>clawback pins the tier deterministically at the proxy: force the documented 5m on tight loops where the 1h premium buys nothing, or inject 1h on purpose across real idle gaps where it earns its keep. Either way, the wheel is in your hands.</p>
-			</div>
-		</section> -->
-
-		<!-- Seven knobs 
+		<!-- The seven knobs -->
 		<section class="wrap" id="knobs" aria-labelledby="knobs-title">
 			<p class="eyebrow">the controls</p>
 			<h2 id="knobs-title">The seven knobs</h2>
-			<p class="section-note">Every knob is one click in the web UI or one POST to an admin endpoint. <span class="tag baseline">passthrough</span> is the baseline arm — it turns everything off so you can A/B clawback against doing nothing.</p>
-			<div class="table-scroll">
-				<table>
-					<caption>Source of truth: the project <a href="https://github.com/zapgun-ai/clawback#the-seven-knobs">README → The Seven Knobs</a>.</caption>
-					<thead>
-						<tr>
-							<th scope="col">Knob</th>
-							<th scope="col">What it does</th>
-							<th scope="col">Why it might help</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row"><span class="tag baseline">passthrough</span></th>
-							<td class="what">Turns every clawback.md intervention off (baseline arm)</td>
-							<td class="why">Measure clawback.md's effect — quick A/B against doing nothing</td>
-						</tr>
-						<tr>
-							<th scope="row"><span class="tag">keep-alive</span></th>
-							<td class="what">Synthetic pings to keep the prompt cache warm</td>
-							<td class="why">Avoid 5-minute cache expiry between turns</td>
-						</tr>
-						<tr>
-							<th scope="row"><span class="tag">1h cache TTL</span></th>
-							<td class="what">Use Anthropic's extended cache tier</td>
-							<td class="why">Make cache survive long idle gaps</td>
-						</tr>
-						<tr>
-							<th scope="row"><span class="tag">strip-ephemeral</span></th>
-							<td class="what">Normalize dates / env in system prompts</td>
-							<td class="why">Prevent silent cache invalidation across days</td>
-						</tr>
-						<tr>
-							<th scope="row"><span class="tag">mobile</span></th>
-							<td class="what">gzip outgoing + non-streaming responses</td>
-							<td class="why">Cut radio-on time on tethered/slow links</td>
-						</tr>
-						<tr>
-							<th scope="row"><span class="tag">extended keep-alive</span></th>
-							<td class="what">15–45 min cadence (pairs with 1h TTL)</td>
-							<td class="why">Cut keep-alive cost ~6–12×</td>
-						</tr>
-						<tr>
-							<th scope="row"><span class="tag">auto-continue</span></th>
-							<td class="what">Resume claude after rate-limit cap resets</td>
-							<td class="why">Don't lose your seat at the table</td>
-						</tr>
-					</tbody>
-				</table>
+			<p class="section-note">
+				Each knob is one click in the local dashboard. The defaults are sensible,
+				and a built-in suggestions engine watches your traffic and tells you when
+				a knob would pay off — and when to turn one off.
+			</p>
+			<div class="cards">
+				<article class="card baseline">
+					<div class="head">
+						<h3>The off switch</h3>
+						<span class="tag baseline">passthrough</span>
+					</div>
+					<p>Flip one switch and <span class="brand">clawback</span> stands down completely, becoming a plain pipe. <span class="lit">Measure it against doing nothing</span> — every claim it makes is one you can check.</p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>No more cold starts</h3>
+						<span class="tag">keep-alive</span>
+					</div>
+					<p>Claude's prompt cache forgets you after 5 idle minutes. <span class="lit">Gentle pings every 1–4 minutes keep it warm between turns</span>, so you stop paying to resend what you already sent.</p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>Step away, come back warm</h3>
+						<span class="tag">1h cache ttl</span>
+					</div>
+					<p>Stretches caching from 5 minutes to a full hour using Anthropic's extended tier. <span class="lit">Coffee, standup, code review — pick up right where you left off.</span></p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>Survive midnight</h3>
+						<span class="tag">strip-ephemeral</span>
+					</div>
+					<p>Timestamps and rotating tokens silently change your prompt and break the cache. <span class="lit">clawback normalizes them</span> so a session that crosses midnight doesn't start from scratch.</p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>Warm for less</h3>
+						<span class="tag">extended cadence</span>
+					</div>
+					<p>With the 1-hour tier on, pings only need to fire every 15–45 minutes. <span class="lit">Same warm cache, ~6–12× less spent keeping it that way.</span></p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>Built for the train</h3>
+						<span class="tag">mobile</span>
+					</div>
+					<p>Compresses outgoing traffic and collapses streams into single responses. <span class="lit">Less radio-on time</span> on hotspots, hotel wi-fi, and battery.</p>
+				</article>
+				<article class="card">
+					<div class="head">
+						<h3>Runs that finish themselves</h3>
+						<span class="tag">auto-continue</span>
+					</div>
+					<p>Hit a rate-limit wall at 3am? <span class="lit">clawback resumes Claude the moment your cap clears</span> — no babysitting, no lost overnight runs.</p>
+				</article>
 			</div>
-		</section> -->
+		</section>
 
-		<!-- Verify 
+		<!-- Coming soon: spend controls -->
+		<section class="wrap" id="soon" aria-labelledby="soon-title">
+			<p class="eyebrow">on the roadmap</p>
+			<h2 id="soon-title">Spend controls <span class="tag soon">coming soon</span></h2>
+			<div class="callout">
+				<p class="pull">Going farther is half the dial. Hard limits are the other half.</p>
+				<p>Token budgets, usage alarms, and hard caps — per seat, per project, per model. Get a heads-up as a budget runs low, and a clean stop when it's spent.</p>
+				<p>So the most capable models go to the work that actually needs them, your quota lands where you aimed it, and nobody discovers an empty tank on Friday afternoon.</p>
+			</div>
+		</section>
+
+		<!-- Verify -->
 		<section class="wrap" id="verify" aria-labelledby="verify-title">
 			<p class="eyebrow">verify</p>
 			<h2 id="verify-title">Don't trust us — run it yourself</h2>
-			<p class="section-note">clawback ships with the rig that measures its own claim. The proxy is zero-install; the benchmark harness lives in the repo, so clone it when you want to A/B your own traffic.</p>
+			<p class="section-note">
+				<span class="brand">clawback</span> ships with the rig that measures its
+				own claim. The proxy is one command; the benchmark harness lives in the
+				repo for when you want to A/B your own traffic.
+			</p>
 
 			<div class="terminal" role="group" aria-label="Example verification session" tabindex="0">
 				<div class="term-bar" aria-hidden="true">
 					<span class="dot dot-r"></span><span class="dot dot-a"></span><span class="dot dot-g"></span>
 					<span class="term-title">zsh — clawback</span>
 				</div>
-<pre class="term-body tnum"><span class="c">$</span> npx clawback quickstart
-  <span class="dim">▸ wrote ./clawback.md   ▸ patched ~/.claude/settings.json</span>
+<pre class="term-body tnum"><span class="c">$</span> npx @zapgun/clawback quickstart
+  <span class="dim">▸ wrote ./CLAWBACK.md   ▸ wired ~/.claude/settings.json</span>
   <span class="dim">▸ proxy on http://localhost:8080   ▸ launching claude…</span>
 
-<span class="c">$</span> open http://localhost:8080/_proxy/ui/         <span class="dim"># watch tokens live</span>
+<span class="c">$</span> open http://localhost:8080/_proxy/ui/         <span class="dim"># watch your tokens live</span>
 
 <span class="c">$</span> scripts/ab_block.sh --profile L2 --turns 200   <span class="dim"># A/B vs doing nothing</span>
-  <span class="dim">arm A0  passthrough (baseline)</span>
-  <span class="dim">arm A5  keep-alive + 1h-TTL + strip-ephemeral</span>
-
-<span class="c">$</span> open http://localhost:8080/_proxy/report       <span class="dim"># read your own numbers</span>
 
 savings %: <strong>insufficient</strong>  <span class="dim">until ≥30 turns/arm — never a number it can't defend</span></pre>
 			</div>
 
 			<div class="honesty">
-				<p>There is no hero percentage on this page on purpose. Below 30 turns per arm the analyzer prints <code class="mono">insufficient</code> instead of a figure it can't stand behind, and every number it does print carries a 95% confidence interval. <span class="muted">No headline savings figure has cleared that significance gate yet — so we don't quote one. Run it against your own sessions and read your own report.</span></p>
+				<p>There is no hero percentage on this page on purpose. Below 30 turns per arm the analyzer prints <code class="mono">insufficient</code> instead of a figure it can't stand behind, and every number it does print carries a 95% confidence interval. <span class="muted">Run it against your own sessions and read your own report.</span></p>
+				<p class="muted">And it all happens on your machine: no telemetry, no accounts, nothing phones home. Your prompts stay between you and Anthropic.</p>
 			</div>
-		</section> -->
+		</section>
+
+		<!-- Contact -->
+		<section class="wrap prose" id="contact" aria-labelledby="contact-title">
+			<h2 id="contact-title">Contact</h2>
+			<p>Features? Questions? We love to hear from users and fans and critics:</p>
+			<ul>
+				<li><a href="mailto:hello@clawback.md">hello@clawback.md</a></li>
+				<li><a href="https://x.com/clawback_md">https://x.com/clawback_md</a></li>
+			</ul>
+		</section>
 
 		<!-- Philosophy -->
 		<section class="wrap philosophy" aria-label="Philosophy">
-    ☧
+	☧
 		</section>
 	</main>
 
 	<footer class="wrap">
-		<!-- <nav aria-label="Footer">
+		<span class="mono">© 2026 clawback.md</span>
+		<nav aria-label="Footer">
 			<a href="https://github.com/zapgun-ai/clawback">Source</a>
 			<a href="https://github.com/zapgun-ai/clawback#readme">README</a>
-			<a href="https://github.com/zapgun-ai/clawback/blob/main/LICENCE">License</a>
-		</nav> -->
+			<a href="https://github.com/zapgun-ai/clawback/blob/main/LICENSE">License</a>
+		</nav>
 	</footer>
 
 	<script>
