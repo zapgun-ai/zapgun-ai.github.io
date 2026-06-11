@@ -434,7 +434,8 @@
 
 <span class="c">$</span> open http://localhost:8080/_proxy/ui/         <span class="dim"># watch your tokens live</span>
 
-<span class="c">$</span> scripts/ab_block.sh --profile L2 --turns 200   <span class="dim"># A/B vs doing nothing</span>
+<span class="c">$</span> git clone https://github.com/zapgun-ai/clawback &amp;&amp; cd clawback   <span class="dim"># A/B rig lives in the repo</span>
+<span class="c">$</span> .skills/ab/scripts/ab_block.sh --profile L2 --turns 200   <span class="dim"># A/B vs doing nothing</span>
 
 savings %: <strong>insufficient</strong>  <span class="dim">until ≥30 turns/arm — never a number it can't defend</span></pre>
 			</div>
