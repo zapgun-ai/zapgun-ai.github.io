@@ -265,49 +265,52 @@
 	<main id="main">
 		<!-- Hero -->
 		<section class="wrap" aria-labelledby="hero-title">
-			<p class="eyebrow">a local optimizer for claude code</p>
+			<!-- <p class="eyebrow">a tokenmaxxing optimizer for Claude and other models.</p> -->
 			<h1 id="hero-title">clawback.md</h1>
 			<h2 id="hero-subtitle">professional tokenmaxxing</h2>
 			<p class="lede">
-				Your tokens go further, so you go further. <span class="brand">clawback</span>
-				quietly tunes how Claude Code talks to Anthropic — same model, same plan,
-				more work out of every session.
+				<span class="brand">clawback</span> tunes how Claude Code (or any client) talks
+        to Anthropic (or any provider) — same models, same plan, more quota, more work.
 			</p>
 
 			<div class="install">
 				<code id="installCmd">npx @zapgun/clawback quickstart</code>
 				<button class="copy" type="button" data-copy="npx @zapgun/clawback quickstart" aria-label="Copy install command">copy</button>
 			</div>
-			<p class="req">Requires Node 24+. Runs entirely on your machine.</p>
+			<p class="req">Requires Node 24+.</p>
+	    <br />
 
-			<div class="hero-cta">
+			<!--<div class="hero-cta">
 				<a class="btn" href="#knobs">See the seven knobs</a>
 				<a class="btn ghost" href="https://github.com/zapgun-ai/clawback#readme">Read the README ↗</a>
-			</div>
+			</div>-->
 		</section>
 
 		<!-- Why -->
 		<section class="wrap prose" id="why" aria-labelledby="why-title">
-			<h2 id="why-title">Why</h2>
+      <h2 id="why-title">Why</h2>
 			<p>
-				We built <span class="brand">clawback</span> because we kept running out
-				of Claude. Anthropic gives you plenty of knobs to tune your usage — but
-				managing knobs isn't delivering product, so nobody really does it.
+				We built <span class="brand">clawback</span> because we love using Claude
+        but kept running into quota limits. Anthropic gives you plenty of knobs to tune
+        your usage. We wanted a tool to manage those knobs for us, so we built
+        <span class="brand">clawback</span>.
 			</p>
 			<p>
-				We made <span class="brand">clawback</span> to optimize our own
-				Anthropic usage, and it works so well we decided to share it.
+				It works so well we decided to share it.
 			</p>
 			<p>
-				<span class="brand">clawback</span> is a transparent local proxy for
-				the Anthropic API. It sits between Claude Code and Anthropic, shows you
-				exactly where your tokens go, and keeps your usage fully optimized —
-				so a day's quota does more than a day's worth of work.
+				<span class="brand">clawback</span> is a transparent local gateway to
+        frontier lab APIs like the Anthropic API. It sits between Claude Code
+        and Anthropic, shows you exactly where your tokens go, and keeps your
+        usage incredibly efficient. <b>We turn a day's quota into a week of work.</b>
+			</p>
+			<p>
+				Here's an actual efficiency gain captured while buiding <span class="brand">clawback</span>:
 			</p>
 			<figure>
 				<img src="https://og.clawback.md/main.png" alt="Chart from a real clawback session showing token efficiency over one night of work" />
-				<figcaption>The actual efficiency gain from last night — captured while using <span class="brand">clawback</span> to build <span class="brand">clawback</span>.</figcaption>
 			</figure>
+      <br />
 		</section>
 
 		<!-- How -->
@@ -318,13 +321,13 @@
 				<span class="who">— Charlie Munger</span>
 			</blockquote>
 			<p>
-				Anthropic prices cached conversation at a steep discount:
+				Anthropic prices cached prompts at a steep discount:
 				<a href="https://platform.claude.com/docs/en/about-claude/pricing"><strong>reading
 				from cache costs 12–20× less than writing to it</strong></a>. But the cache
 				silently expires — after five idle minutes, at midnight when the date inside
 				your prompt changes, whenever a hidden per-request token rotates. Every
-				expiry means your next message pays full price to rebuild context you
-				already paid for.
+				expiry means your next message pays a premium to rebuild context you
+				already paid to store.
 			</p>
 			<p>
 				Nobody upstream is paid to keep your cache warm. How you talk to Claude
@@ -339,11 +342,12 @@
 				read the code</a> and apply these techniques yourself.
 			</p>
 		</section>
+    <br />
 
 		<!-- The seven knobs -->
 		<section class="wrap" id="knobs" aria-labelledby="knobs-title">
-			<p class="eyebrow">the controls</p>
-			<h2 id="knobs-title">The seven knobs</h2>
+			<!-- <p class="eyebrow">the controls</p> -->
+			<h2 id="knobs-title">Seven-knob Optimization</h2>
 			<p class="section-note">
 				Each knob is one click in the local dashboard. The defaults are sensible,
 				and a built-in suggestions engine watches your traffic and tells you when
@@ -401,26 +405,38 @@
 				</article>
 			</div>
 		</section>
+    <br />
 
 		<!-- Coming soon: spend controls -->
 		<section class="wrap" id="soon" aria-labelledby="soon-title">
-			<p class="eyebrow">on the roadmap</p>
-			<h2 id="soon-title">Spend controls <span class="tag soon">coming soon</span></h2>
-			<div class="callout">
-				<p class="pull">Going farther is half the dial. Hard limits are the other half.</p>
-				<p>Token budgets, usage alarms, and hard caps — per seat, per project, per model. Get a heads-up as a budget runs low, and a clean stop when it's spent.</p>
-				<p>So the most capable models go to the work that actually needs them, your quota lands where you aimed it, and nobody discovers an empty tank on Friday afternoon.</p>
-			</div>
+			<!-- <p class="eyebrow">on the roadmap</p> -->
+			<h2 id="soon-title">Quota Controls <span class="tag soon">coming soon</span></h2>
+			<p class="section-note">
+        Make sure your quota lands where you aim it, and you never run out of
+        ammo.
+
+        <ul>
+          <li>Custom quota alarms. "Wow, that's a lot of accidental Mythos spend!"</li>
+          <li>Reserve blocks of tokens, so you always have enough to finish the
+            job. "Always run tests after the linter!"</li>
+          <li>Automatically switch to the right model for the job. "Let 
+            Sonnet write this code, it's easier."</li>
+          <li>Per-client and per-project token spend tracking. "No more tokens
+            on my side project, no matter how much I beg!"</li>
+          <li>More! [Contact us](#contact) and let us know what helps.</li>
+        </ul>
+			</p>
+      <br />
 		</section>
 
 		<!-- Verify -->
 		<section class="wrap" id="verify" aria-labelledby="verify-title">
-			<p class="eyebrow">verify</p>
-			<h2 id="verify-title">Seeing is believing — how to validate it yourself</h2>
+			<!-- <p class="eyebrow">verify</p> -->
+			<h2 id="verify-title">Reporting and Validation</h2>
 			<p class="section-note">
-				<span class="brand">clawback</span> ships with the rig that measures its
-				own claim. The proxy is one command; the benchmark harness lives in the
-				repo for when you want to A/B your own traffic.
+				<span class="brand">clawback</span> ships with the rig we use for performance
+				testing internally. The benchmark harness lives in the repo so you can A/B
+        your own work and generate your own engineering reports:
 			</p>
 
 			<div class="terminal" role="group" aria-label="Example verification session" tabindex="0">
@@ -436,20 +452,19 @@
 
 <span class="c">$</span> git clone https://github.com/zapgun-ai/clawback &amp;&amp; cd clawback   <span class="dim"># A/B rig lives in the repo</span>
 <span class="c">$</span> .skills/ab/scripts/ab_block.sh --profile L2 --turns 200   <span class="dim"># A/B vs doing nothing</span>
-
-savings %: <strong>insufficient</strong>  <span class="dim">until ≥30 turns/arm — never a number it can't defend</span></pre>
 			</div>
+<!-- savings %: <strong>insufficient</strong>  <span class="dim">until ≥30 turns/arm — never a number it can't defend</span></pre> -->
 
 			<div class="honesty">
-				<p>There is no hero percentage on this page on purpose. Below 30 turns per arm the analyzer prints <code class="mono">insufficient</code> instead of a figure it can't stand behind, and every number it does print carries a 95% confidence interval. <span class="muted">Run it against your own sessions and read your own report.</span></p>
-				<p class="muted">And it all happens on your machine: no telemetry, no accounts, nothing phones home. Your prompts stay between you and Anthropic.</p>
+				<p>Reports designed so that every number carries a 95% confidence interval. <span class="muted">Run it against your own sessions and measure the benefit yourself.</span></p>
+				<!--<p class="muted">And it all happens on your machine: no telemetry, no accounts, nothing phones home. Your prompts stay between you and Anthropic.</p>-->
 			</div>
 		</section>
 
 		<!-- Contact -->
 		<section class="wrap prose" id="contact" aria-labelledby="contact-title">
 			<h2 id="contact-title">Contact</h2>
-			<p>Features? Questions? We love to hear from users and fans and critics:</p>
+			<!--<p>Features? Questions? We love to hear from users and fans and critics:</p>-->
 			<ul>
 				<li><a href="mailto:hello@clawback.md">hello@clawback.md</a></li>
 				<li><a href="https://x.com/clawback_md">https://x.com/clawback_md</a></li>
@@ -458,12 +473,12 @@ savings %: <strong>insufficient</strong>  <span class="dim">until ≥30 turns/ar
 
 		<!-- Philosophy -->
 		<section class="wrap philosophy" aria-label="Philosophy">
-	☧
+      ☧
 		</section>
 	</main>
 
 	<footer class="wrap">
-		<span class="mono">© 2026 clawback.md</span>
+		<span class="mono">© 2026 FLIT Generative Tools Inc.</span>
 		<nav aria-label="Footer">
 			<a href="https://github.com/zapgun-ai/clawback">Source</a>
 			<a href="https://github.com/zapgun-ai/clawback#readme">README</a>
