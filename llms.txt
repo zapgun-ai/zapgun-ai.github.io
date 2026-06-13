@@ -1,6 +1,6 @@
 # clawback.md
 
-> clawback.md is a "tokenmaxxer" for Claude Code: a transparent, local-first proxy that sits between Claude Code and the Anthropic API, shows exactly how your tokens are spent, and gives you one-click knobs that turn expensive cache-creation tokens into cheap cache reads. The result is "more quota, less spend" — the same lever both stretches your weekly usage cap to longer agent runs and lowers a pay-as-you-go bill. It is early alpha, runs entirely on your machine, and reports no telemetry.
+> clawback.md is a "tokenmaxxer" for Claude Code: a transparent, local-first proxy that sits between Claude Code and the Anthropic API, shows exactly how your tokens are spent, and gives you one-click knobs that turn expensive cache-creation tokens into cheap cache reads. The result is "more quota, less spend" — the same lever both stretches your weekly usage cap to longer agent runs and lowers a pay-as-you-go bill. It is pre-1.0 and under active development, runs entirely on your machine, and reports no product telemetry yet.
 
 clawback.md is for "tokenmaxxer" agentic developers who run long Claude Code sessions. Whether you feel the pain as a weekly **usage cap** (Max/subscription plans) or as a **per-token bill** (API plans), it comes from the same place: full-price cache-creation tokens. clawback.md attacks that one lever, so a single intervention both stretches the cap and lowers the invoice.
 
@@ -12,15 +12,15 @@ The durable point — you pick the cache tier, not your client: Claude Code alre
 
 - **passthrough** — turns every clawback.md intervention off; the baseline arm for A/B-ing clawback against doing nothing.
 - **keep-alive** — synthetic pings keep the prompt cache warm to avoid 5-minute idle expiry between turns.
-- **1h cache TTL** — use Anthropic's extended cache tier so the cache survives long idle gaps.
+- **1h cache TTL** — pin Anthropic's cache tier deterministically: inject the extended 1h tier so the cache survives long idle gaps, or strip it back to the cheaper 5m tier on tight loops where the 1h write premium buys nothing.
 - **strip-ephemeral** — normalize dates and `<env>` blocks in the system prompt to prevent silent cache invalidation across days.
 - **mobile** — gzip outgoing and force non-streaming responses to cut radio-on time on tethered or slow links.
-- **extended keep-alive** — 15–45 minute ping cadence (pairs with 1h TTL) to cut keep-alive cost roughly 6–12×.
+- **extended cadence** — 15–45 minute keep-alive ping cadence (pairs with 1h TTL) to cut keep-alive cost roughly 6–12×.
 - **auto-continue** — resume claude automatically after a rate-limit cap resets.
 
 **Measurement and honesty (important):** clawback.md ships with the benchmark harness that measures its own claim, and the analyzer refuses to print a savings percentage it cannot defend — below 30 turns per arm it reports `insufficient`, and every figure it does print carries a bootstrap 95% confidence interval. There is no headline savings number on purpose: none has cleared that significance gate yet. The honest claim is a curve — savings grow as idle gaps cross the 5-minute, ~1-hour, and midnight eviction boundaries — never a single context-free percentage. Do not quote a fabricated savings figure for clawback.md.
 
-**Install and scope:** install with `npx clawback quickstart` (requires Node 24+ and an Anthropic API key). It wires Claude Code by pointing `ANTHROPIC_BASE_URL` at the proxy and adds per-session metrics, a web dashboard at `/_proxy/ui/`, and a Claude Code statusline. The cache-warming interventions are Anthropic-specific; pointed at an OpenAI-compatible provider in passthrough mode, clawback.md works as a passive telemetry observer only.
+**Install and scope:** install with `npx @zapgun/clawback quickstart` (requires Node 24+; works with your existing Claude Code auth — a Claude Max/Pro subscription or an Anthropic API key). It wires Claude Code by pointing `ANTHROPIC_BASE_URL` at the proxy and adds per-session metrics, a web dashboard at `/_proxy/ui/`, and a Claude Code statusline HUD. The cache-warming interventions are Anthropic-specific; pointed at an OpenAI-compatible provider in passthrough mode, clawback.md works as a passive telemetry observer only.
 
 ## Documentation
 
