@@ -7,13 +7,13 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>clawback.md — professional tokenmaxxing</title>
-	<meta name="description" content="Make your Claude Code tokens go further. Same plan, same quota, more work done." />
+	<title>clawback.md — professional claude tokenmaxxing</title>
+	<meta name="description" content="Make your Claude Code tokens go further. Same model, same plan, more quota, more work." />
 	<meta name="color-scheme" content="light dark" />
 	<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
 	<meta name="theme-color" content="#181713" media="(prefers-color-scheme: dark)" />
-	<meta property="og:title" content="clawback.md — professional tokenmaxxing" />
-	<meta property="og:description" content="Make your Claude Code tokens go further. Same plan, same quota, more work done." />
+	<meta property="og:title" content="clawback.md — professional claude tokenmaxxing" />
+	<meta property="og:description" content="Make your Claude Code tokens go further. Same model, same plan, more quota, more work." />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="clawback.md" />
 	<meta property="og:url" content="https://clawback.md/" />
@@ -22,12 +22,12 @@
 	<meta property="og:image:type" content="image/png" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content="clawback.md — professional tokenmaxxing" />
+	<meta property="og:image:alt" content="clawback.md — professional claude tokenmaxxing" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="clawback.md — professional tokenmaxxing" />
-	<meta name="twitter:description" content="Make your Claude Code tokens go further. Same plan, same quota, more work done." />
+	<meta name="twitter:title" content="clawback.md — professional claude tokenmaxxing" />
+	<meta name="twitter:description" content="Make your Claude Code tokens go further. Same model, same plan, more quota, more work." />
 	<meta name="twitter:image" content="https://og.clawback.md/main.png" />
-	<meta name="twitter:image:alt" content="clawback.md — professional tokenmaxxing" />
+	<meta name="twitter:image:alt" content="clawback.md — professional claude tokenmaxxing" />
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a5c3f'/><text x='16' y='23' font-size='19' font-family='monospace' fill='white' text-anchor='middle'>$_</text></svg>" />
 	<style>
 		/* Brand tokens — copied verbatim from src/ui/style.css so this page
@@ -255,9 +255,9 @@
 	<header class="nav">
 		<a class="brand" href="#main">clawback<span class="dim">.md</span></a>
 		<nav class="nav-links" aria-label="Primary">
-			<a class="navlink" href="#why">why</a>
-			<a class="navlink" href="#knobs">the seven knobs</a>
-			<a class="navlink" href="#verify">verify</a>
+			<a class="navlink" href="#why"><b>explain</b></a>
+			<a class="navlink" href="#knobs"><b>optimize</b></a>
+			<a class="navlink" href="#verify"><b>report</b></a>
 			<a class="btn ghost" href="https://github.com/zapgun-ai/clawback">GitHub ↗</a>
 		</nav>
 	</header>
@@ -267,7 +267,7 @@
 		<section class="wrap" aria-labelledby="hero-title">
 			<!-- <p class="eyebrow">a tokenmaxxing optimizer for Claude and other models.</p> -->
 			<h1 id="hero-title">clawback.md</h1>
-			<h2 id="hero-subtitle">professional tokenmaxxing</h2>
+			<h2 id="hero-subtitle">professional claude tokenmaxxing</h2>
 			<p class="lede">
 				<span class="brand">clawback</span> tunes how Claude Code (or any client) talks
         to Anthropic (or any provider) — same models, same plan, more quota, more work.
@@ -305,7 +305,7 @@
         usage incredibly efficient. <b>We turn a day's quota into a week of work.</b>
 			</p>
 			<p>
-				Here's an actual efficiency gain captured while buiding <span class="brand">clawback</span>:
+				Here's our Fable 5 (RIP) efficiency gain captured while buiding <span class="brand">clawback</span>:
 			</p>
 			<figure>
 				<img src="https://og.clawback.md/main.png" alt="Chart from a real clawback session showing token efficiency over one night of work" />
@@ -359,28 +359,28 @@
 						<h3>The off switch</h3>
 						<span class="tag baseline">passthrough</span>
 					</div>
-					<p>Flip one switch and <span class="brand">clawback</span> stands down completely, becoming a transparent pipe. This gives you a <span class="lit">clean baseline to measure optimzations against</span>.</p>
+					<p>Flip one switch and <span class="brand">clawback</span> stands down completely, becoming a transparent pipe. <span class="lit">Measure against a clean baseline</span>.</p>
 				</article>
 				<article class="card">
 					<div class="head">
-						<h3>No more cold starts</h3>
+						<h3>Stop cold starts</h3>
 						<span class="tag">keep-alive</span>
 					</div>
-					<p>Claude's prompt cache forgets you after idle time. <span class="lit">Gentle pings every 1–4 minutes keep it warm between turns</span>, so you stop paying to resend what you already sent.</p>
+					<p>Stop paying to rebuild context. Claude evicts you from cache after a few idle minutes. <span class="brand">clawback</span> <span class="lit">keeps the cache alive so you don't have to rebuild it</span>.</p>
 				</article>
 				<article class="card">
 					<div class="head">
-						<h3>Step away, come back warm</h3>
+						<h3>Get up and go!</h3>
 						<span class="tag">1h cache ttl</span>
 					</div>
-					<p>Stretches caching from 5 minutes to a full hour using Anthropic's extended tier. <span class="lit">Coffee, standup, code review — pick up right where you left off.</span></p>
+					<p><span class="lit">Pick up right where you left off after a standup, code review, or after lunch.</span> <span class="brand">clawback</span> manages the premium cache tier automatically for you.</p>
 				</article>
 				<article class="card">
 					<div class="head">
 						<h3>Survive midnight</h3>
 						<span class="tag">strip-ephemeral</span>
 					</div>
-					<p>Timestamps and rotating tokens silently change your prompt and break the cache. <span class="lit">clawback normalizes them</span> so a session that crosses midnight doesn't start from scratch.</p>
+					<p>Every night at midnight the timestamp in your prompt ticks over and you're evicted from cache. <span class="lit">Normalize your prompts</span> with <span class="brand">clawback</span> to keep quota pushing through a late-night coding sesh.</p>
 				</article>
 				<article class="card">
 					<div class="head">
@@ -391,17 +391,18 @@
 				</article>
 				<article class="card">
 					<div class="head">
-						<h3>Built for the train</h3>
-						<span class="tag">mobile</span>
+						<h3>Planes, Trains, and Backseats</h3>
+						<span class="tag">mobile mode</span>
 					</div>
-					<p>Compresses outgoing traffic and collapses streams into single responses. <span class="lit">Less radio-on time</span> on hotspots, hotel wi-fi, and battery.</p>
+					<p>Streaming responses kill your battery. Turn on <!-- <span class="brand">clawback</span>'s --> <span
+            class="tag">mobile mode</span> to compresses outgoing traffic and receive buffered responses. <span class="lit">Less radio time; more battery time</span>.</p>
 				</article>
 				<article class="card">
 					<div class="head">
-						<h3>Runs that finish themselves</h3>
+						<h3>Ready! Set! Code!</h3>
 						<span class="tag">auto-continue</span>
 					</div>
-					<p>Hit a rate-limit wall at 3am? <span class="lit">clawback resumes Claude the moment your cap clears</span> — no babysitting, no lost overnight runs.</p>
+					<p>Quota resets at 3am? <span class="brand">clawback</span> <span class="lit">resumes Claude the moment your tokens refill</span>, with no babysitting.</p>
 				</article>
 			</div>
 		</section>
@@ -457,8 +458,14 @@
 
 			<div class="honesty">
 				<p>Reports designed so that every number carries a 95% confidence interval. <span class="muted">Run it against your own sessions and measure the benefit yourself.</span></p>
+        <br />
 				<!--<p class="muted">And it all happens on your machine: no telemetry, no accounts, nothing phones home. Your prompts stay between you and Anthropic.</p>-->
 			</div>
+
+      <!-- <figure>
+        <img src="og.clawback.md/clawback-94pct-fable.png" alt="94% of our Fable
+        5 calls hit cache." />
+      </figure> -->
 		</section>
 
 		<!-- Contact -->
